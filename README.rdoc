@@ -1,0 +1,155 @@
+= Rdoctest
+
+http://github.com/stephencelis/rdoctest
+
+A {doctest}[http://docs.python.org/py3k/library/doctest.html] for Ruby.
+
+
+== Why?
+
+You'll improve your test coverage and documentation in one fell swoop.
+
+
+== How?
+
+Install the gem:
+
+  % [sudo] gem install rdoctest
+
+
+Use the CLI:
+
+  % rdoctest lib/**/*.rb
+  Loaded suite /.../bin/rdoctest
+  Started
+  .
+  Finished in ... seconds.
+
+  1 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+
+
+== Examples
+
+=== Formatting
+
+Rdoctest expects well-formatted RDoc. This means:
+
+* Indent examples by 2 spaces.
+
+    # For example:
+    #
+    #   1 + 1 # This code is indented by 2 spaces.
+
+
+* If your example is a block of code, use <tt># =></tt> to designate the
+  expected result.
+
+    # Short blocks can have the result on the same line:
+    #
+    #   1 + 1 # => 2
+    #
+    # Longer blocks can have the result on the line following:
+    #
+    #   def hello_world
+    #     puts "Hello, world!"
+    #   end
+    #   # => nil
+
+
+* If your example is an IRB session, use <tt>>></tt> and <tt>=></tt>
+  accordingly.
+
+    # Simple:
+    #
+    #   >> 1 + 1
+    #   => 2
+    #
+    # More complex:
+    #
+    #   >> def hello_world
+    #   >>   puts "Hello, world!"
+    #   >> end
+    #   => nil
+    #   >> hello_world
+    #   Hello, world!
+    #   => nil
+    #
+    # Use ellipses for partial matches:
+    #
+    #   >> goodbye_world
+    #   NameError: undefined local variable or method `goodbye_world'...
+
+
+=== CLI
+
+Rdoctest's CLI works a lot like Ruby's.
+
+  % rdoctest -h
+  Usage: rdoctest [options] [file ...]
+      -Idirectory
+      -rlibrary
+      ...
+
+If you're testing a complex project, make sure you prepare necessary libraries
+and load paths:
+
+  % rdoctest -Ilib -rmylibrary lib/**/*.rb
+
+
+=== Rake
+
+Rdoctest comes with a Rake task that you can load in your Rakefile.
+
+  require 'rdoctest/task'
+  Rdoctest::Task.new
+
+
+And run in your project:
+
+  % rake doctest
+
+
+It comes with a similar configuration to Rake's TestTask.
+
+  Rdoctest::Task.new :test do |t|
+    t.libs      << 'lib'          # The 'lib' directory is loaded by default,
+    t.ruby_opts << '-rrdoctest'   # but require needed files with +ruby_opts+.
+  end
+
+
+== Roadmap
+
+* Better detection of code blocks (the 3-space indent is too restrictive).
+* Test plain text files (READMEs, for example).
+* Autotest integration?
+* Test shell snippets (beginning with <tt>$</tt> and <tt>%</tt>)?
+
+
+== Prior Art
+
+{rubydoctest}[http://github.com/tablatom/rubydoctest].
+
+
+== License
+
+(The MIT License)
+
+(c) 2010 Stephen Celis <stephen@stephencelis.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

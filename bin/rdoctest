@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+require 'optparse'
+lib = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift lib
+
+options = OptionParser.new do |option|
+  option.banner = "Usage: #{basename = File.basename $0} [options] [file ...]"
+  option.on('-Idirectory') { |v|
+    $LOAD_PATH.concat v.split File::PATH_SEPARATOR
+  }
+  option.on('-rlibrary') { |v|
+    require v
+  }
+  option.on('--version') {
+    require 'rdoctest/version'
+    puts "#{basename} #{Rdoctest::Version::VERSION}"
+    exit
+  }
+  option.on('-h', '--help') {
+    puts option
+    exit
+  }
+end
+options.parse!
+
+if ARGF.argv.empty?
+  puts options
+  exit
+end
+
+load 'rdoctest/runner.rb'

@@ -1,0 +1,2 @@
+module Rdoctest # :nodoc:
+end

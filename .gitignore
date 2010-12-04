@@ -1,0 +1,8 @@
+# RDoc
+doc
+
+# RubyGems
+*.gem
+
+# OS X
+.DS_Store
