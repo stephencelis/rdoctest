@@ -117,11 +117,28 @@ It comes with a similar configuration to Rake's TestTask.
   end
 
 
+=== Rails
+
+I haven't done much testing in Rails yet, but the following already works.
+
+First, update your Gemfile to include the gem in your test group:
+
+  group :test do
+    gem 'rdoctest'
+  end
+
+
+Run <tt>bundle install</tt>, and you can immediately invoke the CLI:
+
+  % rdoctest -I. -rconfig/environment app/**/*.rb lib/**/*.rb
+
+
 == Roadmap
 
 * Better detection of code blocks (the 2-space indent is too restrictive).
 * Test plain text files (READMEs, for example).
 * Autotest integration?
+* Better Rails support?
 * Test shell snippets (beginning with <tt>$</tt> and <tt>%</tt>)?
 
 
