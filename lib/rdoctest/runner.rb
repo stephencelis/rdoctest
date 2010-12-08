@@ -29,7 +29,7 @@ module Rdoctest
   #
   # Use ellipses for partial matches.
   #
-  #   >> a
+  #   >> ok
   #   NameError: undefined local variable or method `a'...
   class Runner
     @@ruby = /(.+?)# =>([^\n]+\n)/m
@@ -96,7 +96,6 @@ ASSERTION
             end
 
             define_method "test_line_#{lineno}" do
-              assertions = []
               scanner = StringScanner.new lines
 
               binding = send :binding
@@ -104,13 +103,12 @@ ASSERTION
                 code_lineno = lineno + scanner.pre_match.count("\n")
                 expected_lineno = code_lineno + scanner[1].count("\n")
 
-                result = eval scanner[1], binding #, filename, code_lineno
+                result = eval scanner[1], binding
                 assert_eval scanner[2].strip, result.inspect, filename,
                   expected_lineno
               end
-
               scanner.pos = 0
-              binding = send :binding
+
               while scanner.skip_until(@@irb)
                 code_lineno = lineno + scanner.pre_match.count("\n")
                 output_lineno = code_lineno + scanner[2].to_s.count("\n")
