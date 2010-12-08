@@ -25,7 +25,7 @@ Use the CLI:
   .
   Finished in ... seconds.
 
-  1 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+  1 tests, 6 assertions, 0 failures, 0 errors, 0 skips
 
 
 == Examples
@@ -64,7 +64,7 @@ Rdoctest expects well-formatted RDoc. This means:
     #   >> 1 + 1
     #   => 2
     #
-    # More complex:
+    # More complex, testing output:
     #
     #   >> def hello_world
     #   >>   puts "Hello, world!"
@@ -96,6 +96,12 @@ and load paths:
   % rdoctest -Ilib -rmylibrary lib/**/*.rb
 
 
+If your application handles the loading of files, suppress Rdoctest's autoload
+mechanism:
+
+  $ rdoctest -f -r./config/environment app/**/*.rb
+
+
 === Rake
 
 Rdoctest comes with a Rake task that you can load in your Rakefile.
@@ -104,12 +110,12 @@ Rdoctest comes with a Rake task that you can load in your Rakefile.
   Rdoctest::Task.new
 
 
-And run in your project:
+Running it is simple.
 
   % rake doctest
 
 
-It comes with a similar configuration to Rake's TestTask.
+It comes with a configuration options similar to Rake's TestTask.
 
   Rdoctest::Task.new :test do |t|
     t.libs      << 'lib'          # The 'lib' directory is loaded by default,
@@ -119,18 +125,18 @@ It comes with a similar configuration to Rake's TestTask.
 
 === Rails
 
-I haven't done much testing in Rails yet, but the following already works.
+I haven't done much testing in Rails yet, but the following should work:
 
-First, update your Gemfile to include the gem in your test group:
+First, update your Gemfile to include the gem in your test group.
 
   group :test do
     gem 'rdoctest'
   end
 
 
-Run <tt>bundle install</tt>, and you can immediately invoke the CLI:
+Run <tt>bundle install</tt>, and you can immediately invoke the CLI.
 
-  % rdoctest -I. -rconfig/environment app/**/*.rb lib/**/*.rb
+  % rdoctest -f -r./config/environment app/**/*.rb lib/**/*.rb
 
 
 == Roadmap
