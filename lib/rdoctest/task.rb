@@ -31,7 +31,7 @@ module Rdoctest
     def define
       desc name ? "Run doctests for #{name}" : 'Run doctests'
       task name do
-        ruby "#{run_code} #{ruby_opts_string} #{file_list_string}"
+        system "#{run_code} #{ruby_opts_string} #{file_list_string}"
       end
     end
 
