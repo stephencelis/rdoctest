@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
   s.default_executable = "rdoctest"
 
   s.files = Dir["README.rdoc", "Rakefile", "lib/**/*"]
-  s.test_files = Dir["test/**/*"]
 
   s.extra_rdoc_files = %w(README.rdoc)
   s.has_rdoc = true
