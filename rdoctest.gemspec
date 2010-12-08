@@ -2,7 +2,7 @@ $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), 'lib'))
 require 'rdoctest/version'
 
 Gem::Specification.new do |s|
-  s.date = "2010-12-05"
+  s.date = "2010-12-08"
 
   s.name = "rdoctest"
   s.version = Rdoctest::Version::VERSION.dup
