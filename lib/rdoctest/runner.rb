@@ -125,7 +125,9 @@ ASSERTION
 
                 stdout.rewind
                 output = stdout.read
-                assert_eval scanner[2], output, filename, output_lineno
+                unless output.empty?
+                  assert_eval scanner[2], output, filename, output_lineno
+                end
 
                 if scanner[3]
                   expected = scanner[3].sub(/^=> /, '').strip
