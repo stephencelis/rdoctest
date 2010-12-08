@@ -3,10 +3,14 @@ require 'optparse'
 lib = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift lib
 
+config = { :load_path => [] }
+
 options = OptionParser.new do |option|
   option.banner = "Usage: #{basename = File.basename $0} [options] [file ...]"
   option.on('-Idirectory') { |v|
-    $LOAD_PATH.concat v.split File::PATH_SEPARATOR
+    directories = v.split File::PATH_SEPARATOR
+    $LOAD_PATH.concat directories
+    config[:load_path].concat directories
   }
   option.on('-rlibrary') { |v|
     require v
@@ -29,3 +33,4 @@ if ARGF.argv.empty?
 end
 
 load 'rdoctest/runner.rb'
+Rdoctest::Runner.new(config).run

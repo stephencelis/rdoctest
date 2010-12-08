@@ -35,9 +35,11 @@ module Rdoctest
     @@ruby = /(.+?)# =>([^\n]+\n)/m
     @@irb  = /((?:^>> [^\n]+\n)+)((?:(?!^(?:>>|=>))[^\n]+\n)*)(^=> [^\n]+)?/m
 
-    attr_reader :files
+    attr_reader :files, :options
 
-    def initialize
+    def initialize options = {}
+      @options = options
+
       @files = {}
     end
 
@@ -132,9 +134,9 @@ module Rdoctest
     end
 
     def require_filename filename
-      require filename.gsub(%r{^(?:lib)/|.rb$}, '') unless filename == '-'
+      return if filename == '-'
+      load_path = options[:load_path].join '|'
+      require filename.gsub(%r{^(?:#{load_path})/|.rb$}, '')
     end
   end
 end
-
-Rdoctest::Runner.new.run
