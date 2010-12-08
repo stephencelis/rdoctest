@@ -116,7 +116,7 @@ Running it is simple.
   % rake doctest
 
 
-It comes with a configuration options similar to Rake's TestTask.
+It implements a configuration similar to Rake's TestTask.
 
   Rdoctest::Task.new :test do |t|
     t.libs      << 'lib'          # The 'lib' directory is loaded by default,
