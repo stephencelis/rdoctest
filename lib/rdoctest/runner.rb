@@ -1,6 +1,6 @@
 require 'stringio'
 require 'strscan'
-require 'test/unit'
+require 'rdoctest/test_case'
 
 module Rdoctest
   # The Runner takes RDoc example text and creates tests for them.
@@ -78,22 +78,10 @@ module Rdoctest
         class_name = 'Rdoctest' if class_name.empty?
         require_filename filename
 
-        test_class = Class.new Test::Unit::TestCase do
+        test_class = Class.new Rdoctest::TestCase do
           lineno_and_lines.each_pair do |lineno, lines|
             next unless lines =~ /\S/ # /(?:^|# )=>/
             lines.gsub! /^  /, ''
-
-            define_method "assert_eval" do |expected, result, filename, lineno|
-              if expected.gsub!(/\.{3,}/, '.*')
-                assertion, expected = 'match', /#{expected}/
-              else
-                assertion = 'equal'
-              end
-
-              instance_eval <<ASSERTION, filename, lineno
-assert_#{assertion} #{expected.inspect}, #{result.inspect}
-ASSERTION
-            end
 
             define_method "test_line_#{lineno}" do
               scanner = StringScanner.new lines
