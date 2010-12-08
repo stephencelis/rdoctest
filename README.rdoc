@@ -88,6 +88,7 @@ Rdoctest's CLI works a lot like Ruby's.
   Usage: rdoctest [options] [file ...]
       -Idirectory
       -rlibrary
+      -f                               Don't automatically require files
       ...
 
 If you're testing a complex project, make sure you prepare necessary libraries

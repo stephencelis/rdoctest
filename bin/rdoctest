@@ -15,13 +15,13 @@ options = OptionParser.new do |option|
   option.on('-rlibrary') { |v|
     require v
   }
+  option.on('-f', "Don't automatically require files") { |v|
+    config[:force] = v
+  }
   option.on('--version') {
     require 'rdoctest/version'
     puts "#{basename} #{Rdoctest::Version::VERSION}"
     exit
-  }
-  option.on('-f', "Don't automatically require files") { |v|
-    config[:force] = v
   }
   option.on('-h', '--help') {
     puts option
