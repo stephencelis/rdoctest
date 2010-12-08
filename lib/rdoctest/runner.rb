@@ -134,7 +134,7 @@ module Rdoctest
     end
 
     def require_filename filename
-      return if filename == '-'
+      return if options[:force] || filename == '-'
       load_path = options[:load_path].join '|'
       require filename.gsub(%r{^(?:#{load_path})/|.rb$}, '')
     end

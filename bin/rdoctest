@@ -20,6 +20,9 @@ options = OptionParser.new do |option|
     puts "#{basename} #{Rdoctest::Version::VERSION}"
     exit
   }
+  option.on('-f', "Don't automatically require files") { |v|
+    config[:force] = v
+  }
   option.on('-h', '--help') {
     puts option
     exit
