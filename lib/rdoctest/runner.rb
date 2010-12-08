@@ -58,15 +58,10 @@ module Rdoctest
         lineno += 1
 
         next in_comment = nil unless line.sub! /^ *# ?/, ''
-        in_comment   = lineno if line =~ /^={1,6} \S/
+        in_comment = lineno if line =~ /^={1,6} \S/
         in_comment ||= lineno
 
-        if in_test
-          in_test = false if line !~ /^(?: {2,}|$)/
-        else
-          in_test = true  if line =~ /^ {2}\S/
-        end
-
+        in_test = in_test ? line =~ (/^(?: {2,}|$)/) : line =~ /^ {2}\S/
         line = "\n" unless in_test
         ((files[filename] ||= {})[in_comment] ||= '') << line if in_comment
       end
@@ -113,8 +108,7 @@ module Rdoctest
                   $stdout, stdout = stdout, $stdout
                 end
 
-                stdout.rewind
-                output = stdout.read
+                stdout.rewind and output = stdout.read
                 unless output.empty?
                   assert_eval scanner[2], output, filename, output_lineno
                 end
