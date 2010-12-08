@@ -2,8 +2,9 @@ module Rdoctest
   module Version
     MAJOR = 0
     MINOR = 0
-    PATCH = 1
+    PATCH = 2
+    BETA  = 'pre'
 
-    VERSION = [MAJOR, MINOR, PATCH].compact.join('.').freeze
+    VERSION = [MAJOR, MINOR, PATCH, BETA].compact.join('.').freeze
   end
 end
