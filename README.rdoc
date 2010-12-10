@@ -100,7 +100,7 @@ and load paths:
 If your application handles the loading of files, suppress Rdoctest's autoload
 mechanism:
 
-  $ rdoctest -f -r./config/environment app/**/*.rb
+  % rdoctest -f -r./config/environment app/**/*.rb
 
 
 === Rake
