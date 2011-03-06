@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'stringio'
 require 'strscan'
 require 'rdoctest/test_case'
