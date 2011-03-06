@@ -111,7 +111,7 @@ module Rdoctest
 
                 stdout.rewind and output = stdout.read
                 unless output.empty?
-                  assert_eval scanner[2], output, filename, output_lineno
+                  assert_eval scanner[2], output, filename, output_lineno - 1
                 end
 
                 if scanner[3]

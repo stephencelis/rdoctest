@@ -4,7 +4,7 @@ module Rdoctest
   class TestCase < Test::Unit::TestCase
     private
 
-    def assert_eval expected, result, filename, lineno
+    define_method :assert_eval do |expected, result, filename, lineno|
       if expected.gsub!(/\.{3,}/, '.*')
         assertion, expected = 'match', /#{expected}/
       else
